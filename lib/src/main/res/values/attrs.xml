@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PasswordInput">
+        <!--背景色-->
+        <attr name="myBackground" format="color" />
+        <!--每个字符的边框边角-->
+        <attr name="myBoxRadius" format="dimension" />
+        <!--每个字符的边框颜色-->
+        <attr name="myBoxBorderColor" format="color" />
+        <!--每个字符的边框宽度-->
+        <attr name="myBoxBorderWidth" format="dimension" />
+        <!--每个字符marge-->
+        <attr name="myBoxMarge" format="dimension" />
+        <!--每个字符的边框颜色-->
+        <attr name="myPasswordColor" format="color" />
+        <!--密码字符宽度-->
+        <attr name="myPasswordWidth" format="dimension" />
+        <!--密码的长度-->
+        <attr name="myPasswordLength" format="integer" />
+    </declare-styleable>
+
+</resources>
