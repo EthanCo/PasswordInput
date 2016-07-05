@@ -23,27 +23,54 @@
         app:myBoxBorderWidth="1dp"
         app:myBoxMarge="8dp"
         app:myBoxRadius="10dp"
+        app:myFocusBoxBorderColor="@color/colorAccent"
+        app:myFocusColorChange="true"
+        app:myFocusPasswordColor="@color/colorAccent"
+        app:myPasswordColor="@color/colorPrimary"
+        app:myPasswordLength="6"
+        app:myPasswordNullColor="@color/colorPrimary"
+        app:myPasswordNullVisible="true"
+        app:myPasswordNullWidth="1dp"
+        app:myPasswordWidth="8dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <!--<com.ethanco.lib.PasswordInput
+        android:id="@+id/passwordInput"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:cursorVisible="false"
+        android:focusable="true"
+        android:inputType="number"
+        android:maxLength="6"
+        app:myBackground="@android:color/white"
+        app:myBoxBorderColor="@android:color/transparent"
+        app:myBoxBorderWidth="1dp"
+        app:myBoxMarge="8dp"
+        app:myBoxRadius="10dp"
         app:myPasswordColor="@color/colorAccent"
         app:myPasswordLength="6"
         app:myPasswordNullVisible="true"
         app:myPasswordNullColor="@color/colorAccent"
         app:myPasswordNullWidth="1dp"
-        app:myPasswordWidth="8dp" />
+        app:myPasswordWidth="8dp" />-->
 
     <!--<com.ethanco.lib.PasswordInput-->
-        <!--android:id="@+id/passwordInput2"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="56dp"-->
-        <!--android:cursorVisible="false"-->
-        <!--android:focusable="true"-->
-        <!--android:inputType="number"-->
-        <!--android:maxLength="6"-->
-        <!--app:myBackground="@android:color/white"-->
-        <!--app:myBoxBorderColor="@color/colorAccent"-->
-        <!--app:myBoxBorderWidth="1dp"-->
-        <!--app:myBoxMarge="8dp"-->
-        <!--app:myBoxRadius="10dp"-->
-        <!--app:myPasswordColor="@color/colorAccent"-->
-        <!--app:myPasswordLength="6"-->
-        <!--app:myPasswordWidth="8dp" />-->
+    <!--android:id="@+id/passwordInput2"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="56dp"-->
+    <!--android:cursorVisible="false"-->
+    <!--android:focusable="true"-->
+    <!--android:inputType="number"-->
+    <!--android:maxLength="6"-->
+    <!--app:myBackground="@android:color/white"-->
+    <!--app:myBoxBorderColor="@color/colorAccent"-->
+    <!--app:myBoxBorderWidth="1dp"-->
+    <!--app:myBoxMarge="8dp"-->
+    <!--app:myBoxRadius="10dp"-->
+    <!--app:myPasswordColor="@color/colorAccent"-->
+    <!--app:myPasswordLength="6"-->
+    <!--app:myPasswordWidth="8dp" />-->
 </LinearLayout>

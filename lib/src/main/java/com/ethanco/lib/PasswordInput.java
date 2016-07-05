@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -19,7 +20,10 @@ import static android.graphics.Paint.ANTI_ALIAS_FLAG;
  */
 public class PasswordInput extends EditText {
 
-    private boolean passwordNullVisible;
+    private final boolean focusColorChangeEnable;
+    private int focusBoxBorderColor;
+    private int focusPasswordColor;
+    private final boolean passwordNullVisible;
     private int backgroundColor;
     private float boxRadius;
     private int boxBorderColor;
@@ -55,6 +59,13 @@ public class PasswordInput extends EditText {
         passwordColor = a.getColor(R.styleable.PasswordInput_myPasswordColor, Color.GRAY);
         passwordWidth = a.getDimension(R.styleable.PasswordInput_myPasswordWidth, passwordWidth);
         passwordLen = a.getInt(R.styleable.PasswordInput_myPasswordLength, passwordLen);
+
+        focusColorChangeEnable = a.getBoolean(R.styleable.PasswordInput_myFocusColorChange, false);
+        if (focusColorChangeEnable) {
+            focusBoxBorderColor = a.getColor(R.styleable.PasswordInput_myFocusBoxBorderColor, Color.GRAY);
+            focusPasswordColor = a.getColor(R.styleable.PasswordInput_myFocusPasswordColor, Color.GRAY);
+        }
+
         passwordNullVisible = a.getBoolean(R.styleable.PasswordInput_myPasswordNullVisible, false);
         if (passwordNullVisible) {
             passwordNullWidth = a.getDimension(R.styleable.PasswordInput_myPasswordNullWidth, passwordNullWidth);
@@ -126,6 +137,23 @@ public class PasswordInput extends EditText {
 
         if (null != textLenChangeListen) {
             textLenChangeListen.onTextLenChange(text, textLength);
+        }
+    }
+
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+        if (focusColorChangeEnable) {
+            if (focused) {
+                borderPaint.setColor(focusBoxBorderColor);
+                passwordPaint.setColor(focusPasswordColor);
+                passwordnullPaint.setColor(focusPasswordColor);
+            } else {
+                borderPaint.setColor(boxBorderColor);
+                passwordPaint.setColor(passwordColor);
+                passwordnullPaint.setColor(passwordNullColor);
+            }
+            invalidate();
         }
     }
 
