@@ -1,7 +1,11 @@
 # PasswordInput #
 密码输入框  
 
-![PasswordInput](/passwordInput.gif)
+![PasswordInput](/passwordInput.gif)  
+
+没有边框，未输入密码为圆圈的形式  
+
+![PasswordInput2](/passwordInput2.gif)
 
 ## 自定义属性 ##
 
@@ -20,12 +24,20 @@
     <!--密码字符宽度-->
     <attr name="myPasswordWidth" format="dimension" />
     <!--密码的长度-->
-    <attr name="myPasswordLength" format="integer" />  
-
+    <attr name="myPasswordLength" format="integer" />
+    <!--密码未输入时圆圈是否可见，当可见状态，以下属性才可用-->
+    <attr name="myPasswordNullVisible" format="boolean" />
+    <!--密码未输入状态下的宽度-->
+    <attr name="myPasswordNullWidth" format="dimension" />
+    <!--密码未输入状态下的颜色-->
+    <attr name="myPasswordNullColor" format="color" />
 
 ## 使用 ##
 
 在你的项目中加入PasswordInput Library，之后在xml使用即可  
+
+
+### 有边框的密码输入框 ###
 
 	<com.ethanco.lib.PasswordInput
     android:id="@+id/passwordInput"
@@ -42,6 +54,28 @@
     app:myBoxRadius="10dp"
     app:myPasswordColor="@color/colorAccent"
     app:myPasswordLength="6"
+    app:myPasswordWidth="8dp" />
+
+### 没有边框，未输入密码为圆圈的形式  ###
+
+	<com.ethanco.lib.PasswordInput
+    android:id="@+id/passwordInput"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:cursorVisible="false"
+    android:focusable="true"
+    android:inputType="number"
+    android:maxLength="6"
+    app:myBackground="@android:color/white"
+    app:myBoxBorderColor="@android:color/transparent"
+    app:myBoxBorderWidth="1dp"
+    app:myBoxMarge="8dp"
+    app:myBoxRadius="10dp"
+    app:myPasswordColor="@color/colorAccent"
+    app:myPasswordLength="6"
+    app:myPasswordNullVisible="true"
+    app:myPasswordNullColor="@color/colorAccent"
+    app:myPasswordNullWidth="1dp"
     app:myPasswordWidth="8dp" />
 
 ### 设置内容改变监听 ###

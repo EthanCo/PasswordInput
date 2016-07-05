@@ -18,6 +18,12 @@
         <attr name="myPasswordWidth" format="dimension" />
         <!--密码的长度-->
         <attr name="myPasswordLength" format="integer" />
+        <!--密码未输入时圆圈是否可见，当可见状态，以下属性才可用-->
+        <attr name="myPasswordNullVisible" format="boolean" />
+        <!--密码未输入状态下的宽度-->
+        <attr name="myPasswordNullWidth" format="dimension" />
+        <!--密码未输入状态下的颜色-->
+        <attr name="myPasswordNullColor" format="color" />
     </declare-styleable>
 
 </resources>

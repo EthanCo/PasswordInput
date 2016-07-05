@@ -18,19 +18,24 @@ import static android.graphics.Paint.ANTI_ALIAS_FLAG;
  * Created by EthanCo on 2016/7/4.
  */
 public class PasswordInput extends EditText {
+
+    private boolean passwordNullVisible;
     private int backgroundColor;
     private float boxRadius;
     private int boxBorderColor;
     private int passwordColor;
+    private int passwordNullColor;
     private int passwordLen = 6;
     private float boxMarge = 10;
     private float boxBorderWidth = 2;
     private float passwordWidth = 10;
+    private float passwordNullWidth = 2;
 
     private int textLength;
 
     private Paint backgroundPaint = new Paint(ANTI_ALIAS_FLAG);
     private Paint passwordPaint = new Paint(ANTI_ALIAS_FLAG);
+    private Paint passwordnullPaint = new Paint(ANTI_ALIAS_FLAG);
     private Paint borderPaint = new Paint(ANTI_ALIAS_FLAG);
 
     public PasswordInput(Context context, AttributeSet attrs) {
@@ -39,6 +44,7 @@ public class PasswordInput extends EditText {
         boxBorderWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, boxBorderWidth, dm);
         passwordWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, passwordWidth, dm);
         boxMarge = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, boxMarge, dm);
+        passwordNullWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, passwordNullWidth, dm);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.PasswordInput, 0, 0);
         backgroundColor = a.getColor(R.styleable.PasswordInput_myBackground, Color.WHITE);
@@ -49,6 +55,11 @@ public class PasswordInput extends EditText {
         passwordColor = a.getColor(R.styleable.PasswordInput_myPasswordColor, Color.GRAY);
         passwordWidth = a.getDimension(R.styleable.PasswordInput_myPasswordWidth, passwordWidth);
         passwordLen = a.getInt(R.styleable.PasswordInput_myPasswordLength, passwordLen);
+        passwordNullVisible = a.getBoolean(R.styleable.PasswordInput_myPasswordNullVisible, false);
+        if (passwordNullVisible) {
+            passwordNullWidth = a.getDimension(R.styleable.PasswordInput_myPasswordNullWidth, passwordNullWidth);
+            passwordNullColor = a.getColor(R.styleable.PasswordInput_myPasswordNullColor, Color.TRANSPARENT);
+        }
         a.recycle();
 
         backgroundPaint.setColor(backgroundColor);
@@ -58,6 +69,9 @@ public class PasswordInput extends EditText {
         passwordPaint.setStrokeWidth(passwordWidth);
         passwordPaint.setStyle(Paint.Style.FILL);
         passwordPaint.setColor(passwordColor);
+        passwordnullPaint.setStrokeWidth(passwordNullWidth);
+        passwordnullPaint.setStyle(Paint.Style.STROKE);
+        passwordnullPaint.setColor(passwordNullColor);
     }
 
     @Override
@@ -84,12 +98,23 @@ public class PasswordInput extends EditText {
             canvas.drawRoundRect(rect, boxRadius, boxRadius, borderPaint);
         }
 
+        //绘制的点数，当密码未输入的点可见时，为passwordLen，不可见时，为textLength
+        int totalLen;
+        if (passwordNullVisible) {
+            totalLen = passwordLen;
+        } else {
+            totalLen = textLength;
+        }
         // 密码
         float cx, cy = height / 2;
         float half = width / passwordLen / 2;
-        for (int i = 0; i < textLength; i++) {
+        for (int i = 0; i < totalLen; i++) {
             cx = width * i / passwordLen + half;
-            canvas.drawCircle(cx, cy, passwordWidth, passwordPaint);
+            if (textLength > i) {
+                canvas.drawCircle(cx, cy, passwordWidth, passwordPaint);
+            } else {
+                canvas.drawCircle(cx, cy, passwordWidth, passwordnullPaint);
+            }
         }
     }
 

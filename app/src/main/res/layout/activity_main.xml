@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.ethanco.passwordinput.MainActivity">
+    android:paddingTop="@dimen/activity_vertical_margin">
 
     <com.ethanco.lib.PasswordInput
         android:id="@+id/passwordInput"
@@ -20,11 +19,31 @@
         android:inputType="number"
         android:maxLength="6"
         app:myBackground="@android:color/white"
-        app:myBoxBorderColor="@color/colorAccent"
+        app:myBoxBorderColor="@android:color/transparent"
         app:myBoxBorderWidth="1dp"
         app:myBoxMarge="8dp"
         app:myBoxRadius="10dp"
         app:myPasswordColor="@color/colorAccent"
         app:myPasswordLength="6"
+        app:myPasswordNullVisible="true"
+        app:myPasswordNullColor="@color/colorAccent"
+        app:myPasswordNullWidth="1dp"
         app:myPasswordWidth="8dp" />
-</RelativeLayout>
+
+    <!--<com.ethanco.lib.PasswordInput-->
+        <!--android:id="@+id/passwordInput2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="56dp"-->
+        <!--android:cursorVisible="false"-->
+        <!--android:focusable="true"-->
+        <!--android:inputType="number"-->
+        <!--android:maxLength="6"-->
+        <!--app:myBackground="@android:color/white"-->
+        <!--app:myBoxBorderColor="@color/colorAccent"-->
+        <!--app:myBoxBorderWidth="1dp"-->
+        <!--app:myBoxMarge="8dp"-->
+        <!--app:myBoxRadius="10dp"-->
+        <!--app:myPasswordColor="@color/colorAccent"-->
+        <!--app:myPasswordLength="6"-->
+        <!--app:myPasswordWidth="8dp" />-->
+</LinearLayout>
