@@ -105,7 +105,7 @@ public class PasswordInput extends EditText {
             float top = boxMarge;
             float bottom = boxHeight - boxMarge;
             RectF rect = new RectF(left, top, right, bottom);
-            borderPaint.setColor(boxBorderColor);
+            //borderPaint.setColor(boxBorderColor);
             canvas.drawRoundRect(rect, boxRadius, boxRadius, borderPaint);
         }
 
