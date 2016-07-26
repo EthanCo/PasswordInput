@@ -2,14 +2,19 @@ package com.ethanco.lib;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -22,63 +27,115 @@ import com.ethanco.lib.utils.DisplayUtil;
  */
 public class SimplePasswordInput extends EditText {
 
-    private static final String TAG = "Z-";
+    private static final String TAG = "Z-SimplePasswordInput";
+
     //============================= Z-边框 ==============================/
     @ColorInt
-    private int borderUncheckedColor = Color.BLACK; //边框未选中时的颜色
+    private int borderNotFocusedColor = Color.BLACK; //边框未选中时的颜色
     @ColorInt
-    private int borderCheckedColor = Color.BLUE; //边框选中时的颜色
+    private int borderFocusedColor = Color.BLUE; //边框选中时的颜色
     private int borderWidth; //边框宽度
 
 
     //============================= Z-圆点 ==============================/
     @ColorInt
-    private int dotUncheckedColor = Color.BLACK; //圆点未选中时的颜色
+    private int dotNotFocusedColor = Color.BLACK; //圆点未选中时的颜色
     @ColorInt
-    private int dotCheckedColor = Color.BLUE; //圆点选中时的颜色
-    //@ColorInt
-    //private int dotNotInputColor = Color.TRANSPARENT; //圆点没有输入时的颜色:透明
-    private int dotRadius; //圆点半径
+    private int dotFocusedColor = Color.BLUE; //圆点选中时的颜色
+    private float dotRadius; //圆点半径
 
     //============================= Z-背景 ==============================/
     @ColorInt
     private int backgroundColor = Color.WHITE; //背景色
 
     //============================= Z-画笔 ==============================/
-    private final Paint mBorderPaint; //边框画笔
-    private final Paint mDotPaint; //圆点话题
-    private final Paint mBackgroundPaint; //背景画笔
+    private Paint mBorderPaint; //边框画笔
+    private Paint mDotPaint; //圆点画笔
+    private Paint mBackgroundPaint; //背景画笔
+
+    //============================= Z-方块 ==============================/
+    private int boxCount = 4; //字符方块的数量
+    private float boxMarge; //字符方块的marge
+    private float boxRadius; //字符方块的边角圆弧
+    private float[] scans;  //字符方块缩放比例数组
+    private int[] alphas;   //字符方块透明度数组
 
     //============================= Z-其他 ==============================/
-    private final int passwordLen = 4;
-    private float[] scanArr;
-    private float boxMarge = 10;
-    private float boxRadius;
     private int currTextLen = 0; //现在输入Text长度
+    private boolean focusColorChangeEnable = true; //获得焦点时颜色是否改变
+
+    public SimplePasswordInput(Context context) {
+        this(context, null);
+    }
 
     public SimplePasswordInput(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        //获取系统属性
+        getSystemVar();
+        //初始化自定义属性
+        initAttrVar(context, attrs);
+        //初始化动画存储数组
+        initAnimArr();
+        //初始化画笔
+        initPaint();
+        //初始化EditText
+        initView();
+    }
+
+    private void getSystemVar() {
+        //TODO How to get maxLength ?
+        //TypedArray taSystem = context.obtainStyledAttributes(attrs, com.android.internal.R.styleable.TextView);
+        //maxLength = taSystem.getInt(com.android.internal.R.styleable.TextView_maxLength, maxLength);
+        //taSystem.recycle();
+    }
+
+    private void initAttrVar(Context context, AttributeSet attrs) {
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.PasswordInput);
+        backgroundColor = ta.getColor(R.styleable.PasswordInput_backgroundColor, backgroundColor);
+        int focusedColor = ta.getColor(R.styleable.PasswordInput_focusedColor, Color.BLACK);
+        int notFocusedColor = ta.getColor(R.styleable.PasswordInput_notFocusedColor, Color.BLUE);
+        boxCount = ta.getInt(R.styleable.PasswordInput_boxCount, boxCount);
+        focusColorChangeEnable = ta.getBoolean(R.styleable.PasswordInput_focusColorChangeEnable, true);
+        dotRadius = ta.getDimension(R.styleable.PasswordInput_dotRaduis, DisplayUtil.dp2px(context, 11));
+        ta.recycle();
+
+        borderFocusedColor = focusedColor;
+        borderNotFocusedColor = notFocusedColor;
+        dotFocusedColor = focusedColor;
+        dotNotFocusedColor = notFocusedColor;
+
         borderWidth = DisplayUtil.dp2px(context, 1);
         boxRadius = DisplayUtil.dp2px(context, 3);
+        boxMarge = DisplayUtil.dp2px(context, 3);
+    }
 
-        scanArr = new float[passwordLen];
-//        for (int i = 0; i < scanArr.length; i++) {
-//            scanArr[i] = 1;
-//        }
+    private void initAnimArr() {
+        scans = new float[boxCount];
+        alphas = new int[boxCount];
+        for (int i = 0; i < alphas.length; i++) {
+            alphas[i] = 255;
+        }
+    }
 
+    private void initPaint() {
         mBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBorderPaint.setStrokeWidth(borderWidth);
-        mBorderPaint.setColor(borderUncheckedColor);
+        mBorderPaint.setColor(borderNotFocusedColor);
         mBorderPaint.setStyle(Paint.Style.STROKE);
 
         mDotPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mDotPaint.setColor(dotUncheckedColor);
+        mDotPaint.setColor(dotNotFocusedColor);
         mDotPaint.setStyle(Paint.Style.FILL);
 
         mBackgroundPaint = new Paint();
         mBackgroundPaint.setColor(backgroundColor);
         mBackgroundPaint.setStyle(Paint.Style.FILL);
+    }
+
+    private void initView() {
+        setCursorVisible(false); //光标不可见
+        setInputType(InputType.TYPE_CLASS_NUMBER); //设置输入的是数字
     }
 
     @Override
@@ -89,7 +146,6 @@ public class SimplePasswordInput extends EditText {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        dotRadius = (int) (getHeight() / 5F);
     }
 
     @Override
@@ -101,30 +157,41 @@ public class SimplePasswordInput extends EditText {
 
         canvas.save();
 
-        //背景
-        canvas.drawRect(0, 0, width, height, mBackgroundPaint);
-
-        //边框
-        for (int i = 0; i < passwordLen; i++) {
-            RectF rect = generationSquareBoxRectF(height, width, i);
-            canvas.drawRoundRect(rect, boxRadius, boxRadius, mBorderPaint);
-        }
-
-        //圆点
-        float cx, cy = height / 2;
-        float half = width / passwordLen / 2;
-        for (int i = 0; i < passwordLen; i++) {
-            cx = width * i / passwordLen + half;
-            Log.i(TAG, "onDraw scanArr[" + i + "]: " + scanArr[i]);
-            canvas.drawCircle(cx, cy, dotRadius * scanArr[i], mDotPaint);
-        }
+        //绘制背景
+        drawBackGround(canvas, height, width);
+        //绘制边框
+        drawBorder(canvas, height, width);
+        //绘制圆点
+        drawDot(canvas, height, width);
 
         canvas.restore();
     }
 
+    private void drawDot(Canvas canvas, int height, int width) {
+        float cx, cy = height / 2;
+        float half = width / boxCount / 2;
+        for (int i = 0; i < boxCount; i++) {
+            mDotPaint.setAlpha(alphas[i]);
+            cx = width * i / boxCount + half;
+            Log.i(TAG, "onDraw scans[" + i + "]: " + scans[i]);
+            canvas.drawCircle(cx, cy, dotRadius * scans[i], mDotPaint);
+        }
+    }
+
+    private void drawBorder(Canvas canvas, int height, int width) {
+        for (int i = 0; i < boxCount; i++) {
+            RectF rect = generationSquareBoxRectF(height, width, i);
+            canvas.drawRoundRect(rect, boxRadius, boxRadius, mBorderPaint);
+        }
+    }
+
+    private void drawBackGround(Canvas canvas, int height, int width) {
+        canvas.drawRect(0, 0, width, height, mBackgroundPaint);
+    }
+
     @NonNull
     private RectF generationSquareBoxRectF(int height, int width, int i) {
-        float boxWidth = (width / passwordLen);
+        float boxWidth = (width / boxCount);
         float boxHeight = height;
         float left = boxMarge + boxWidth * i;
         float right = boxWidth * (i + 1) - boxMarge;
@@ -143,19 +210,6 @@ public class SimplePasswordInput extends EditText {
         return new RectF(left, top, right, bottom);
     }
 
-    //len=6 currTextLen=5 index=5
-    //len=5 currTextLen=4 index=4
-    //len=4 currTextLen=3 index=3
-    //len=3 currTextLen=3 index=3
-    //len=2 currTextLen=2 index=2
-    //len=1 currTextLen=1 index=1
-    //len=0 currTextLen=0 index=0
-
-    //len=6 currTextLen=5 index=5
-    //len=5 currTextLen=4 index=4
-    //len=4 currTextLen=3 index=3
-
-
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
         return super.onCreateInputConnection(outAttrs);
@@ -163,46 +217,94 @@ public class SimplePasswordInput extends EditText {
 
     @Override
     protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
-        Log.i(TAG, "onTextChanged lengthBefore: " + lengthBefore + " lengthAfter:" + lengthAfter);
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
 
-        if (null == scanArr) return;
+        if (null == scans) return;
 
         final boolean isAdd = lengthAfter - lengthBefore > 0 ? true : false;
         this.currTextLen = text.toString().length();
 
         final ValueAnimator scanAnim;
+        final ValueAnimator alphaAnim;
         final int index;
         if (isAdd) {
             index = currTextLen - 1;
             scanAnim = ValueAnimator.ofFloat(0F, 1F);
+            alphaAnim = ValueAnimator.ofInt(0, 255);
         } else {
             index = currTextLen;
             scanAnim = ValueAnimator.ofFloat(1F, 0F);
+            alphaAnim = ValueAnimator.ofInt(255, 0);
         }
-        if (scanArr.length >= currTextLen) {
+        if (scans.length >= currTextLen) {
+
             scanAnim.setDuration(750);
             scanAnim.setRepeatCount(0);
             scanAnim.setInterpolator(new OvershootInterpolator());
             scanAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    Log.i(TAG, "onAnimationUpdate index=" + index + ": " + valueAnimator.getAnimatedValue());
+                    float scale = (float) valueAnimator.getAnimatedValue();
+                    scans[index] = scale;
+                    postInvalidate();
+                }
+            });
 
-                    float value = (float) valueAnimator.getAnimatedValue();
+            alphaAnim.setDuration(750);
+            alphaAnim.setRepeatCount(0);
+            alphaAnim.setInterpolator(new LinearInterpolator());
+            alphaAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    int alpha = (int) valueAnimator.getAnimatedValue();
+                    alphas[index] = alpha;
+                    postInvalidate();
+                }
+            });
 
-                    scanArr[index] = value;
+            scanAnim.start();
+            alphaAnim.start();
+        }
+
+        if (null != textLenChangeListen) {
+            textLenChangeListen.onTextLenChange(text, currTextLen);
+        }
+    }
+
+    @Override
+    protected void onFocusChanged(final boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+        if (focusColorChangeEnable) {
+            final ValueAnimator scanAnim;
+
+            scanAnim = ValueAnimator.ofFloat(1F, 0.1F, 1F);
+
+            scanAnim.setDuration(750);
+            scanAnim.setRepeatCount(0);
+            scanAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+            scanAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    float scale = (float) valueAnimator.getAnimatedValue();
+                    for (int i = 0; i < scans.length; i++) {
+                        if (scans[i] != 0) {
+                            scans[i] = scale;
+                        }
+                    }
+                    if (scale <= 0.15) {
+                        if (focused) {
+                            mBorderPaint.setColor(borderFocusedColor);
+                            mDotPaint.setColor(dotFocusedColor);
+                        } else {
+                            mBorderPaint.setColor(borderNotFocusedColor);
+                            mDotPaint.setColor(dotNotFocusedColor);
+                        }
+                    }
                     postInvalidate();
                 }
             });
             scanAnim.start();
         }
-
-        //invalidate();
-        if (null != textLenChangeListen) {
-            textLenChangeListen.onTextLenChange(text, currTextLen);
-        }
-
     }
 
     public interface TextLenChangeListen {

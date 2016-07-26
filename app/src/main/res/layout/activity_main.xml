@@ -10,63 +10,46 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:text="请输入密码:" />
+
     <com.ethanco.lib.SimplePasswordInput
         android:id="@+id/passwordInput"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:cursorVisible="false"
-        android:focusable="true"
-        android:inputType="number"
-        android:maxLength="4"
-        app:myBackground="@android:color/white"
-        app:myBoxBorderColor="@android:color/transparent"
-        app:myBoxBorderWidth="1dp"
-        app:myBoxMarge="8dp"
-        app:myBoxRadius="10dp"
-        app:myFocusBoxBorderColor="@color/colorAccent"
-        app:myFocusColorChange="true"
-        app:myFocusPasswordColor="@color/colorAccent"
-        app:myPasswordColor="@color/colorPrimary"
-        app:myPasswordLength="4"
-        app:myPasswordNullColor="@color/colorPrimary"
-        app:myPasswordNullVisible="true"
-        app:myPasswordNullWidth="1dp"
-        app:myPasswordWidth="8dp" />
+        android:maxLength="6"
+        app:boxCount="6"
+        app:focusedColor="@color/colorAccent"
+        app:notFocusedColor="@color/colorPrimary" />
 
-    <!--<com.ethanco.lib.PasswordInput
-        android:id="@+id/passwordInput"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:text="请再次输入密码:" />
+
+    <com.ethanco.lib.SimplePasswordInput
+        android:id="@+id/passwordInput2"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:cursorVisible="false"
-        android:focusable="true"
-        android:inputType="number"
         android:maxLength="6"
-        app:myBackground="@android:color/white"
-        app:myBoxBorderColor="@android:color/transparent"
-        app:myBoxBorderWidth="1dp"
-        app:myBoxMarge="8dp"
-        app:myBoxRadius="10dp"
-        app:myPasswordColor="@color/colorAccent"
-        app:myPasswordLength="6"
-        app:myPasswordNullVisible="true"
-        app:myPasswordNullColor="@color/colorAccent"
-        app:myPasswordNullWidth="1dp"
-        app:myPasswordWidth="8dp" />-->
+        app:backgroundColor="@android:color/white"
+        app:boxCount="6"
+        app:dotRaduis="11dp"
+        app:focusColorChangeEnable="true"
+        app:focusedColor="@color/colorAccent"
+        app:notFocusedColor="@color/colorPrimary" />
 
-    <!--<com.ethanco.lib.PasswordInput-->
-    <!--android:id="@+id/passwordInput2"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="56dp"-->
-    <!--android:cursorVisible="false"-->
-    <!--android:focusable="true"-->
-    <!--android:inputType="number"-->
-    <!--android:maxLength="6"-->
-    <!--app:myBackground="@android:color/white"-->
-    <!--app:myBoxBorderColor="@color/colorAccent"-->
-    <!--app:myBoxBorderWidth="1dp"-->
-    <!--app:myBoxMarge="8dp"-->
-    <!--app:myBoxRadius="10dp"-->
-    <!--app:myPasswordColor="@color/colorAccent"-->
-    <!--app:myPasswordLength="6"-->
-    <!--app:myPasswordWidth="8dp" />-->
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="确定"
+        android:textSize="16sp" />
 </LinearLayout>
