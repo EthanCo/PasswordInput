@@ -63,6 +63,7 @@ public class PasswordInput extends EditText {
     private int currTextLen = 0; //现在输入Text长度
     private boolean focusColorChangeEnable = true; //获得焦点时颜色是否改变
     private static final InputFilter[] NO_FILTERS = new InputFilter[0];
+    private boolean isFristChangeText = true; //是否是刚显示的时候
 
     public PasswordInput(Context context) {
         this(context, null);
@@ -216,6 +217,10 @@ public class PasswordInput extends EditText {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
 
         if (null == scans) return;
+        if (isFristChangeText) {
+            isFristChangeText = false;
+            return;
+        }
 
         this.currTextLen = text.toString().length();
         final boolean isAdd = lengthAfter - lengthBefore > 0 ? true : false;
