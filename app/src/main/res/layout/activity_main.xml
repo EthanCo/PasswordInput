@@ -17,11 +17,10 @@
         android:layout_marginTop="10dp"
         android:text="请输入密码:" />
 
-    <com.ethanco.lib.SimplePasswordInput
-        android:id="@+id/passwordInput"
+    <com.ethanco.lib.PasswordInput
+        android:id="@+id/passwordInput_first"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:maxLength="6"
         app:boxCount="6"
         app:focusedColor="@color/colorAccent"
         app:notFocusedColor="@color/colorPrimary" />
@@ -33,11 +32,10 @@
         android:layout_marginTop="10dp"
         android:text="请再次输入密码:" />
 
-    <com.ethanco.lib.SimplePasswordInput
-        android:id="@+id/passwordInput2"
+    <com.ethanco.lib.PasswordInput
+        android:id="@+id/passwordInput_again"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:maxLength="6"
         app:backgroundColor="@android:color/white"
         app:boxCount="6"
         app:dotRaduis="11dp"
@@ -47,6 +45,7 @@
 
 
     <Button
+        android:id="@+id/btn_confirm"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
