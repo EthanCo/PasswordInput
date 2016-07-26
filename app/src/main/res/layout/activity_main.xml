@@ -10,14 +10,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <com.ethanco.lib.PasswordInput
+    <com.ethanco.lib.SimplePasswordInput
         android:id="@+id/passwordInput"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:cursorVisible="false"
         android:focusable="true"
         android:inputType="number"
-        android:maxLength="6"
+        android:maxLength="4"
         app:myBackground="@android:color/white"
         app:myBoxBorderColor="@android:color/transparent"
         app:myBoxBorderWidth="1dp"
@@ -27,15 +27,11 @@
         app:myFocusColorChange="true"
         app:myFocusPasswordColor="@color/colorAccent"
         app:myPasswordColor="@color/colorPrimary"
-        app:myPasswordLength="6"
+        app:myPasswordLength="4"
         app:myPasswordNullColor="@color/colorPrimary"
         app:myPasswordNullVisible="true"
         app:myPasswordNullWidth="1dp"
         app:myPasswordWidth="8dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
 
     <!--<com.ethanco.lib.PasswordInput
         android:id="@+id/passwordInput"
