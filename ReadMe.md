@@ -1,7 +1,9 @@
 # PasswordInput #
 密码输入框  
 
-![PasswordInput](passwordInput.gif)
+![PasswordInput](passwordInput.gif)  
+
+![](http://i4.piimg.com/567571/1b0798bc3c3e3cca.gif)
 
 v1.3  
 
