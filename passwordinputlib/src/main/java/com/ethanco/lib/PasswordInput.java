@@ -19,7 +19,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
 
-import com.ethanco.lib.utils.DisplayUtil;
+import com.ethanco.lib.utils.Utils;
 
 /**
  * Created by EthanCo on 2016/7/25.
@@ -99,7 +99,7 @@ public class PasswordInput extends EditText {
         int notFocusedColor = ta.getColor(R.styleable.PasswordInput_notFocusedColor, Color.BLUE);
         boxCount = ta.getInt(R.styleable.PasswordInput_boxCount, boxCount);
         focusColorChangeEnable = ta.getBoolean(R.styleable.PasswordInput_focusColorChangeEnable, true);
-        dotRadius = ta.getDimension(R.styleable.PasswordInput_dotRaduis, DisplayUtil.dp2px(context, 11));
+        dotRadius = ta.getDimension(R.styleable.PasswordInput_dotRaduis, Utils.dp2px(context, 11));
         ta.recycle();
 
         borderFocusedColor = focusedColor;
@@ -107,9 +107,9 @@ public class PasswordInput extends EditText {
         dotFocusedColor = focusedColor;
         dotNotFocusedColor = notFocusedColor;
 
-        borderWidth = DisplayUtil.dp2px(context, 1);
-        boxRadius = DisplayUtil.dp2px(context, 3);
-        boxMarge = DisplayUtil.dp2px(context, 3);
+        borderWidth = Utils.dp2px(context, 1);
+        boxRadius = Utils.dp2px(context, 3);
+        boxMarge = Utils.dp2px(context, 3);
     }
 
     private void initAnimArr() {
