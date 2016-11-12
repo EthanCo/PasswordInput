@@ -6,8 +6,10 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://C:/Java/SDK/extras/android/m2repository/com/android/support/appcompat-v7/24.0.0/appcompat-v7-24.0.0-sources.jar!/" />
-      <root url="jar://C:/Java/SDK/extras/android/m2repository/com/android/support/appcompat-v7/24.0.0/appcompat-v7-24.0.0-sources.jar!/" />
+      <root url="jar://D:/SDK/extras/android/m2repository/com/android/support/appcompat-v7/24.0.0/appcompat-v7-24.0.0-sources.jar!/" />
+      <root url="jar://D:/SDK/extras/android/m2repository/com/android/support/appcompat-v7/24.0.0/appcompat-v7-24.0.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/appcompat-v7/24.0.0/62f5a92844ab233aca69beadc350d772b8b44b85/appcompat-v7-24.0.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/appcompat-v7/24.0.0/62f5a92844ab233aca69beadc350d772b8b44b85/appcompat-v7-24.0.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

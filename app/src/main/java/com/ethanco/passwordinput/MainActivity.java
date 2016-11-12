@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /* //设置Text长度改变监听
+        /* //Text长度改变监听
         passwordInputFirset.setTextLenChangeListen(new PasswordInput.TextLenChangeListen() {
             @Override
             public void onTextLenChange(CharSequence text, int len) {
