@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /* //Text长度改变监听
-        passwordInputFirset.setTextLenChangeListen(new PasswordInput.TextLenChangeListen() {
+         //Text长度改变监听
+        /*passwordInputFirst.setTextLenChangeListener(new PasswordInput.TextLenChangeListener() {
             @Override
             public void onTextLenChange(CharSequence text, int len) {
                 if (len == 6) {
@@ -53,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onPositiveClick(DialogInterface dialog, int which, String text) {
                         Toast.makeText(MainActivity.this, "text:" + text, Toast.LENGTH_SHORT).show();
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
                     }
                 });
             }

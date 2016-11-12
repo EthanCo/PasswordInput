@@ -59,4 +59,10 @@
         android:layout_marginTop="24dp"
         android:text="显示密码对话框"
         android:textSize="16sp" />
+
+    <com.ethanco.lib.PasswordInput
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"/>
 </LinearLayout>

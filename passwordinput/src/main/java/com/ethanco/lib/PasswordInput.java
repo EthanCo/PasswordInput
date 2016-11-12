@@ -19,7 +19,8 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
 
-import com.ethanco.lib.utils.Utils;
+import static com.ethanco.lib.utils.Utils.dp2px;
+import static com.ethanco.lib.utils.Utils.getColor;
 
 /**
  * Created by EthanCo on 2016/7/25.
@@ -30,9 +31,9 @@ public class PasswordInput extends EditText {
 
     //============================= Z-边框 ==============================/
     @ColorInt
-    private int borderNotFocusedColor = Color.BLACK; //边框未选中时的颜色
+    private int borderNotFocusedColor; //边框未选中时的颜色
     @ColorInt
-    private int borderFocusedColor = Color.BLUE; //边框选中时的颜色
+    private int borderFocusedColor; //边框选中时的颜色
     private int borderWidth; //边框宽度
 
 
@@ -90,16 +91,18 @@ public class PasswordInput extends EditText {
         //TypedArray taSystem = context.obtainStyledAttributes(attrs, com.android.internal.R.styleable.TextView);
         //maxLength = taSystem.getInt(com.android.internal.R.styleable.TextView_maxLength, maxLength);
         //taSystem.recycle();
+        borderNotFocusedColor = getColor(getContext(), R.color.password_input_border_not_focused);
+        borderFocusedColor = getColor(getContext(), R.color.password_input_border_focused);
     }
 
     private void initAttrVar(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.PasswordInput);
         backgroundColor = ta.getColor(R.styleable.PasswordInput_backgroundColor, backgroundColor);
-        int focusedColor = ta.getColor(R.styleable.PasswordInput_focusedColor, Color.BLACK);
-        int notFocusedColor = ta.getColor(R.styleable.PasswordInput_notFocusedColor, Color.BLUE);
+        int focusedColor = ta.getColor(R.styleable.PasswordInput_focusedColor, borderFocusedColor);
+        int notFocusedColor = ta.getColor(R.styleable.PasswordInput_notFocusedColor, borderNotFocusedColor);
         boxCount = ta.getInt(R.styleable.PasswordInput_boxCount, boxCount);
         focusColorChangeEnable = ta.getBoolean(R.styleable.PasswordInput_focusColorChangeEnable, true);
-        dotRadius = ta.getDimension(R.styleable.PasswordInput_dotRaduis, Utils.dp2px(context, 11));
+        dotRadius = ta.getDimension(R.styleable.PasswordInput_dotRaduis, dp2px(context, 11));
         ta.recycle();
 
         borderFocusedColor = focusedColor;
@@ -107,9 +110,9 @@ public class PasswordInput extends EditText {
         dotFocusedColor = focusedColor;
         dotNotFocusedColor = notFocusedColor;
 
-        borderWidth = Utils.dp2px(context, 1);
-        boxRadius = Utils.dp2px(context, 3);
-        boxMarge = Utils.dp2px(context, 3);
+        borderWidth = dp2px(context, 1);
+        boxRadius = dp2px(context, 3);
+        boxMarge = dp2px(context, 3);
     }
 
     private void initAnimArr() {
@@ -212,23 +215,48 @@ public class PasswordInput extends EditText {
         return new RectF(left, top, right, bottom);
     }
 
+    boolean isFinishInflate = false;
+
     @Override
-    protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+
+        isFinishInflate = true;
+    }
+
+    @Override
+    protected void onTextChanged(CharSequence text, final int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
 
-        if (null == scans) return;
-        if (isFristChangeText) {
-            isFristChangeText = false;
+//        Log.i(TAG, "onTextChanged currTextLen:" + currTextLen+" id:"+getId());
+//        if (null == scans) return;
+//        Log.i(TAG, "==>onTextChanged currTextLen:" + currTextLen+" id:"+getId());
+//        if (isFristChangeText) {
+//            isFristChangeText = false;
+//            return;
+//        }
+
+        if (!isFinishInflate) {
             return;
         }
 
         this.currTextLen = text.toString().length();
         final boolean isAdd = lengthAfter - lengthBefore > 0 ? true : false;
 
-        //开始TextCahnged动画
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                Log.i(TAG, "currTextLen:" + currTextLen);
+//                for (int i = 0; i < currTextLen; i++) {
+//                    scans[i] = 1;
+//                }
+//                postInvalidate();
+//            }
+//        }.start();
+
         startTextChangedAnim(isAdd);
         //通知TextChangeListen
-        notifyTextChangeListen(text);
+        notifyTextChangeListener(text);
     }
 
     /**
@@ -281,7 +309,7 @@ public class PasswordInput extends EditText {
         }
     }
 
-    private void notifyTextChangeListen(CharSequence text) {
+    private void notifyTextChangeListener(CharSequence text) {
         if (null != textLenChangeListen) {
             textLenChangeListen.onTextLenChange(text, currTextLen);
         }
@@ -332,18 +360,18 @@ public class PasswordInput extends EditText {
         scanAnim.start();
     }
 
-    public interface TextLenChangeListen {
+    public interface TextLenChangeListener {
         void onTextLenChange(CharSequence text, int len);
     }
 
-    private TextLenChangeListen textLenChangeListen;
+    private TextLenChangeListener textLenChangeListen;
 
     /**
      * 设置Text长度改变监听
      *
      * @param lenListen
      */
-    public void setTextLenChangeListen(TextLenChangeListen lenListen) {
+    public void setTextLenChangeListener(TextLenChangeListener lenListen) {
         textLenChangeListen = lenListen;
     }
 }
