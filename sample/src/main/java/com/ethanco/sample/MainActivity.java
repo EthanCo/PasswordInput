@@ -1,15 +1,13 @@
 package com.ethanco.sample;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.ethanco.lib.PasswordDialog;
+import com.ethanco.lib.PasswordDialog2;
 import com.ethanco.lib.PasswordInput;
-import com.ethanco.lib.abs.OnPositiveButtonListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-         //Text长度改变监听
+        //Text长度改变监听
         /*passwordInputFirst.setTextLenChangeListener(new PasswordInput.TextLenChangeListener() {
             @Override
             public void onTextLenChange(CharSequence text, int len) {
@@ -49,17 +47,20 @@ public class MainActivity extends AppCompatActivity {
         btnShowDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PasswordDialog.show(MainActivity.this, "Title", new OnPositiveButtonListener() {
+               /* PasswordDialog.show(MainActivity.this, "请输入密码", new OnPositiveButtonListener() {
                     @Override
                     public void onPositiveClick(DialogInterface dialog, int which, String text) {
-                        Toast.makeText(MainActivity.this, "text:" + text, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
                     }
                 }, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
-                });
+                });*/
+
+                PasswordDialog2.Builder builder = new PasswordDialog2.Builder(MainActivity.this);
+                builder.create().show();
             }
         });
     }

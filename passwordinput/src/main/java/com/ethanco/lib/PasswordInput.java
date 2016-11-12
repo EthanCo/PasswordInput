@@ -26,7 +26,6 @@ import static com.ethanco.lib.utils.Utils.getColor;
  * Created by EthanCo on 2016/7/25.
  */
 public class PasswordInput extends EditText {
-
     private static final String TAG = "Z-SimplePasswordInput";
 
     //============================= Z-边框 ==============================/
@@ -39,9 +38,9 @@ public class PasswordInput extends EditText {
 
     //============================= Z-圆点 ==============================/
     @ColorInt
-    private int dotNotFocusedColor = Color.BLACK; //圆点未选中时的颜色
+    private int dotNotFocusedColor; //圆点未选中时的颜色
     @ColorInt
-    private int dotFocusedColor = Color.BLUE; //圆点选中时的颜色
+    private int dotFocusedColor; //圆点选中时的颜色
     private float dotRadius; //圆点半径
 
     //============================= Z-背景 ==============================/
@@ -64,7 +63,7 @@ public class PasswordInput extends EditText {
     private int currTextLen = 0; //现在输入Text长度
     private boolean focusColorChangeEnable = true; //获得焦点时颜色是否改变
     private static final InputFilter[] NO_FILTERS = new InputFilter[0];
-    private boolean isFristChangeText = true; //是否是刚显示的时候
+    private boolean isFinishInflate = false; //inflate layout 是否已结束
 
     public PasswordInput(Context context) {
         this(context, null);
@@ -74,8 +73,8 @@ public class PasswordInput extends EditText {
     public PasswordInput(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        //获取系统属性
-        getSystemVar();
+        //获取默认属性
+        getDefaultVar();
         //初始化自定义属性
         initAttrVar(context, attrs);
         //初始化动画存储数组
@@ -86,11 +85,7 @@ public class PasswordInput extends EditText {
         initView();
     }
 
-    private void getSystemVar() {
-        //TODO How to get maxLength ?
-        //TypedArray taSystem = context.obtainStyledAttributes(attrs, com.android.internal.R.styleable.TextView);
-        //maxLength = taSystem.getInt(com.android.internal.R.styleable.TextView_maxLength, maxLength);
-        //taSystem.recycle();
+    private void getDefaultVar() {
         borderNotFocusedColor = getColor(getContext(), R.color.password_input_border_not_focused);
         borderFocusedColor = getColor(getContext(), R.color.password_input_border_focused);
     }
@@ -215,8 +210,6 @@ public class PasswordInput extends EditText {
         return new RectF(left, top, right, bottom);
     }
 
-    boolean isFinishInflate = false;
-
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -241,7 +234,7 @@ public class PasswordInput extends EditText {
         }
 
         this.currTextLen = text.toString().length();
-        final boolean isAdd = lengthAfter - lengthBefore > 0 ? true : false;
+        final boolean isAdd = lengthAfter - lengthBefore > 0;
 
 //        new Thread() {
 //            @Override
@@ -310,8 +303,8 @@ public class PasswordInput extends EditText {
     }
 
     private void notifyTextChangeListener(CharSequence text) {
-        if (null != textLenChangeListen) {
-            textLenChangeListen.onTextLenChange(text, currTextLen);
+        if (null != textLenChangeListener) {
+            textLenChangeListener.onTextLenChange(text, currTextLen);
         }
     }
 
@@ -326,7 +319,7 @@ public class PasswordInput extends EditText {
     /**
      * 开始FocusChanged动画
      *
-     * @param focused
+     * @param focused 是否获得焦点
      */
     private void startFocusChangedAnim(final boolean focused) {
         final ValueAnimator scanAnim;
@@ -364,14 +357,55 @@ public class PasswordInput extends EditText {
         void onTextLenChange(CharSequence text, int len);
     }
 
-    private TextLenChangeListener textLenChangeListen;
+    private TextLenChangeListener textLenChangeListener;
 
     /**
      * 设置Text长度改变监听
      *
-     * @param lenListen
+     * @param lenListener 监听
      */
-    public void setTextLenChangeListener(TextLenChangeListener lenListen) {
-        textLenChangeListen = lenListen;
+    public void setTextLenChangeListener(TextLenChangeListener lenListener) {
+        textLenChangeListener = lenListener;
+    }
+
+    public void setBorderNotFocusedColor(int borderNotFocusedColor) {
+        this.borderNotFocusedColor = borderNotFocusedColor;
+    }
+
+    public void setBorderFocusedColor(int borderFocusedColor) {
+        this.borderFocusedColor = borderFocusedColor;
+    }
+
+    public void setBorderWidth(int borderWidth) {
+        this.borderWidth = borderWidth;
+    }
+
+    public void setDotNotFocusedColor(int dotNotFocusedColor) {
+        this.dotNotFocusedColor = dotNotFocusedColor;
+    }
+
+    public void setDotFocusedColor(int dotFocusedColor) {
+        this.dotFocusedColor = dotFocusedColor;
+    }
+
+    public void setDotRadius(float dotRadius) {
+        this.dotRadius = dotRadius;
+    }
+
+    @Override
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    public void setBoxCount(int boxCount) {
+        this.boxCount = boxCount;
+    }
+
+    public void setBoxMarge(float boxMarge) {
+        this.boxMarge = boxMarge;
+    }
+
+    public void setBoxRadius(float boxRadius) {
+        this.boxRadius = boxRadius;
     }
 }
