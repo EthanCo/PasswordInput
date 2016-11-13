@@ -368,11 +368,11 @@ public class PasswordInput extends EditText {
         textLenChangeListener = lenListener;
     }
 
-    public void setBorderNotFocusedColor(int borderNotFocusedColor) {
+    public void setBorderNotFocusedColor(@ColorInt int borderNotFocusedColor) {
         this.borderNotFocusedColor = borderNotFocusedColor;
     }
 
-    public void setBorderFocusedColor(int borderFocusedColor) {
+    public void setBorderFocusedColor(@ColorInt int borderFocusedColor) {
         this.borderFocusedColor = borderFocusedColor;
     }
 
@@ -380,11 +380,11 @@ public class PasswordInput extends EditText {
         this.borderWidth = borderWidth;
     }
 
-    public void setDotNotFocusedColor(int dotNotFocusedColor) {
+    public void setDotNotFocusedColor(@ColorInt int dotNotFocusedColor) {
         this.dotNotFocusedColor = dotNotFocusedColor;
     }
 
-    public void setDotFocusedColor(int dotFocusedColor) {
+    public void setDotFocusedColor(@ColorInt int dotFocusedColor) {
         this.dotFocusedColor = dotFocusedColor;
     }
 
@@ -393,7 +393,7 @@ public class PasswordInput extends EditText {
     }
 
     @Override
-    public void setBackgroundColor(int backgroundColor) {
+    public void setBackgroundColor(@ColorInt int backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
 
@@ -407,5 +407,9 @@ public class PasswordInput extends EditText {
 
     public void setBoxRadius(float boxRadius) {
         this.boxRadius = boxRadius;
+    }
+
+    public void setFocusColorChangeEnable(boolean focusColorChangeEnable) {
+        this.focusColorChangeEnable = focusColorChangeEnable;
     }
 }

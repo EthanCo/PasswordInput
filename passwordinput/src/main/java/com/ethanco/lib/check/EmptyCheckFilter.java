@@ -5,13 +5,13 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.ethanco.lib.R;
-import com.ethanco.lib.abs.ICheckPassword;
+import com.ethanco.lib.abs.ICheckPasswordFilter;
 
 /**
  * Created by EthanCo on 2016/11/13.
  */
 
-public class EmptyCheck implements ICheckPassword {
+public class EmptyCheckFilter implements ICheckPasswordFilter {
 
     @Override
     public boolean onCheckPassword(Context context, CharSequence password) {

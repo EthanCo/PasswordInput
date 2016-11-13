@@ -60,9 +60,11 @@
         android:text="显示密码对话框"
         android:textSize="16sp" />
 
-    <com.ethanco.lib.PasswordInput
-        android:layout_width="280dp"
+    <Button
+        android:id="@+id/btn_show_dialog_simple"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginTop="24dp"
+        android:text="显示密码对话框_简化版"
+        android:textSize="16sp" />
 </LinearLayout>
