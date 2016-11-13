@@ -5,9 +5,9 @@
 
 ![](/passwordInput.gif)  
 
-![](/PasswordDialog.jpg)
+![](http://yotuku.cn/link?url=BkTFp8HWl&tk_plan=free&tk_storage=tietuku&tk_vuid=0b1372f4-d75a-448f-b3c6-484b81b02b70&tk_time=2016111311)  
 
-![](http://yotuku.cn/link?url=SJ5dc8HZg&tk_plan=free&tk_storage=tietuku&tk_vuid=0b1372f4-d75a-448f-b3c6-484b81b02b70&tk_time=2016111311)
+![](/PasswordDialog.jpg)
 
 v1.5
   
