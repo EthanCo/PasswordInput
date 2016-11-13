@@ -3,10 +3,15 @@
 
 ![](http://i4.piimg.com/567571/1b0798bc3c3e3cca.gif)  
 
-![](/passwordInput.gif)
+![](/passwordInput.gif)  
 
-v1.3  
+![](/PasswordDialog.jpg)
 
+![](http://yotuku.cn/link?url=SJ5dc8HZg&tk_plan=free&tk_storage=tietuku&tk_vuid=0b1372f4-d75a-448f-b3c6-484b81b02b70&tk_time=2016111311)
+
+v1.5
+  
+- 增加了PasswordDialog，采用Buider模式，可直接使用
 - 精简了代码和自定义属性，只保留主要功能，以降低代码大小和使用成本
 - 获得焦点时可改变颜色，区分获得焦点的控件和未获得焦点的控件
 - 具有过渡动画，在输入、删除、焦点切换时进行较好的过渡，解决用户使用时的突兀感
