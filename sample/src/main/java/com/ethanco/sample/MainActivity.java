@@ -39,14 +39,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Text长度改变监听
-        /*passwordInputFirst.setTextLenChangeListener(new PasswordInput.TextLenChangeListener() {
+        passwordInputFirst.setTextLenChangeListener(new PasswordInput.TextLenChangeListener() {
             @Override
             public void onTextLenChange(CharSequence text, int len) {
                 if (len == 6) {
-                    Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
+                    //do something
+                    //Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
                 }
             }
-        });*/
+        });
 
         //密码对话框 常用情况
         btnShowDialogSimple.setOnClickListener(new View.OnClickListener() {
