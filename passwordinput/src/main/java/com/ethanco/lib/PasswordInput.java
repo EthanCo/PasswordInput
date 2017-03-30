@@ -65,6 +65,8 @@ public class PasswordInput extends AppCompatEditText {
     private static final InputFilter[] NO_FILTERS = new InputFilter[0];
     private boolean isFinishInflate = false; //inflate layout 是否已结束
 
+    private RectF mBorderRect = new RectF();
+
     public PasswordInput(Context context) {
         this(context, null);
 
@@ -207,7 +209,8 @@ public class PasswordInput extends AppCompatEditText {
         top += dh;
         bottom -= dh;
 
-        return new RectF(left, top, right, bottom);
+        mBorderRect.set(left, top, right, bottom);
+        return mBorderRect;
     }
 
     @Override
