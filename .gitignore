@@ -34,7 +34,10 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
+.idea
 
 # Keystore files
 *.jks
+
+# Mac files
+.DS_Store
