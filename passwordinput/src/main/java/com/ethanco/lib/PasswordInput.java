@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.AttributeSet;
@@ -17,7 +18,6 @@ import android.util.Log;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
-import android.widget.EditText;
 
 import static com.ethanco.lib.utils.Utils.dp2px;
 import static com.ethanco.lib.utils.Utils.getColor;
@@ -25,7 +25,7 @@ import static com.ethanco.lib.utils.Utils.getColor;
 /**
  * Created by EthanCo on 2016/7/25.
  */
-public class PasswordInput extends EditText {
+public class PasswordInput extends AppCompatEditText {
     private static final String TAG = "Z-SimplePasswordInput";
 
     //============================= Z-边框 ==============================/
