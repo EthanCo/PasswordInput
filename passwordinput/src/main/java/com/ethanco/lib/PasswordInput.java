@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.method.MovementMethod;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -140,6 +141,7 @@ public class PasswordInput extends AppCompatEditText {
         setInputType(InputType.TYPE_CLASS_NUMBER); //设置输入的是数字
         //设置输入最大长度
         setMaxLen(boxCount);
+        setTextIsSelectable(false);//设置文字不可选中
     }
 
     private void setMaxLen(int maxLength) {
@@ -218,6 +220,13 @@ public class PasswordInput extends AppCompatEditText {
         super.onFinishInflate();
 
         isFinishInflate = true;
+    }
+
+    @Override
+    protected MovementMethod getDefaultMovementMethod() {
+        //关闭 copy/paste/cut 长按文字菜单，使文字不可长按选中
+        //Note: 需 setTextIsSelectable(false) 才会生效
+        return null;
     }
 
     @Override
