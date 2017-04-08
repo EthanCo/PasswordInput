@@ -233,6 +233,10 @@ public class PasswordInput extends AppCompatEditText {
     protected void onTextChanged(CharSequence text, final int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
 
+        if (start != text.length()) {
+            moveCursorToTheEnd();
+        }
+
 //        Log.i(TAG, "onTextChanged currTextLen:" + currTextLen+" id:"+getId());
 //        if (null == scans) return;
 //        Log.i(TAG, "==>onTextChanged currTextLen:" + currTextLen+" id:"+getId());
@@ -323,6 +327,11 @@ public class PasswordInput extends AppCompatEditText {
     @Override
     protected void onFocusChanged(final boolean focused, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
+
+        if (focused) {
+            moveCursorToTheEnd();
+        }
+
         if (focusColorChangeEnable) {
             startFocusChangedAnim(focused);
         }
@@ -363,6 +372,19 @@ public class PasswordInput extends AppCompatEditText {
             }
         });
         scanAnim.start();
+    }
+
+    @Override
+    protected void onSelectionChanged(int selStart, int selEnd) {
+        super.onSelectionChanged(selStart, selEnd);
+
+        if (selEnd != getText().length()) {
+            moveCursorToTheEnd();
+        }
+    }
+
+    private void moveCursorToTheEnd() {
+        setSelection(getText().length());
     }
 
     public interface TextLenChangeListener {
