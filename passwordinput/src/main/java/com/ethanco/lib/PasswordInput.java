@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.method.MovementMethod;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -140,6 +141,7 @@ public class PasswordInput extends AppCompatEditText {
         setInputType(InputType.TYPE_CLASS_NUMBER); //设置输入的是数字
         //设置输入最大长度
         setMaxLen(boxCount);
+        setTextIsSelectable(false);//设置文字不可选中
     }
 
     private void setMaxLen(int maxLength) {
@@ -221,8 +223,19 @@ public class PasswordInput extends AppCompatEditText {
     }
 
     @Override
+    protected MovementMethod getDefaultMovementMethod() {
+        //关闭 copy/paste/cut 长按文字菜单，使文字不可长按选中
+        //Note: 需 setTextIsSelectable(false) 才会生效
+        return null;
+    }
+
+    @Override
     protected void onTextChanged(CharSequence text, final int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
+
+        if (start != text.length()) {
+            moveCursorToTheEnd();
+        }
 
 //        Log.i(TAG, "onTextChanged currTextLen:" + currTextLen+" id:"+getId());
 //        if (null == scans) return;
@@ -314,6 +327,11 @@ public class PasswordInput extends AppCompatEditText {
     @Override
     protected void onFocusChanged(final boolean focused, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
+
+        if (focused) {
+            moveCursorToTheEnd();
+        }
+
         if (focusColorChangeEnable) {
             startFocusChangedAnim(focused);
         }
@@ -354,6 +372,19 @@ public class PasswordInput extends AppCompatEditText {
             }
         });
         scanAnim.start();
+    }
+
+    @Override
+    protected void onSelectionChanged(int selStart, int selEnd) {
+        super.onSelectionChanged(selStart, selEnd);
+
+        if (selEnd != getText().length()) {
+            moveCursorToTheEnd();
+        }
+    }
+
+    private void moveCursorToTheEnd() {
+        setSelection(getText().length());
     }
 
     public interface TextLenChangeListener {
