@@ -36,7 +36,7 @@ allprojects {
 
 ``` Groovy
 dependencies {
-   compile 'com.github.EthanCo:PasswordInput:1.5.0'
+   compile 'com.github.EthanCo:PasswordInput:1.5.1'
 }
 ```
 
