@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                         })
                         //.setCheckPasswordFilers() //设置过滤器List 这将清除默认和之前设置的所有过滤器
                         .addCheckPasswordFilter(new CountCheckFilter()) //添加过滤器
-                        .setCancelable(false);
+                        .setCancelable(false); //dialog弹出后点击屏幕或物理返回键，dialog不消失
                 builder.create().show();
             }
         });

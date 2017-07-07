@@ -36,7 +36,7 @@ allprojects {
 
 ``` Groovy
 dependencies {
-   compile 'com.github.EthanCo:PasswordInput:1.5.1'
+   compile 'com.github.EthanCo:PasswordInput:1.5.2'
 }
 ```
 
@@ -170,6 +170,11 @@ buidler.setBorderNotFocusedColor(R.color.colorSecondaryText)
 <color name="colorAccent">#FF4081</color>
 ```
 
+### 点击屏幕或物理返回键，dialog不消失 ###
+``` java
+builder..setCancelable(false);
+```
+
 复制到app的color.xml中修改即可。  
 
 ### 自定义Dialog布局 ###
@@ -204,6 +209,7 @@ buidler.setBorderNotFocusedColor(R.color.colorSecondaryText)
 #### 在代码中使用 ####
 
 ``` java
-PasswordDialog.Builder builder = new PasswordDialog.Builder(MainActivity.this, R.layout.custom_dialog_password);
+PasswordDialog.Builder builder = new 
+PasswordDialog.Builder(MainActivity.this, R.layout.custom_dialog_password);
 ```
 
