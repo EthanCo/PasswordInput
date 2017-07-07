@@ -35,6 +35,7 @@ public class PasswordDialog {
         final OnPositiveButtonListener positiveListener = builder.positiveListener;
         final DialogInterface.OnClickListener negativeListener = builder.negativeListener;
         final List<ICheckPasswordFilter> checkpasswordFilers = builder.checkPasswordFilers;
+        final boolean isCancelable = builder.isCancelable;
 
         if (null == passwordInput) {
             throw new IllegalArgumentException("passwordInput is null，please check tag is " + builder.SIGN);
@@ -57,6 +58,7 @@ public class PasswordDialog {
         if (null != negativeListener) {
             b.setNegativeButton(negativeText, negativeListener);
         }
+        b.setCancelable(isCancelable);
         mDialog = b.create();
     }
 
@@ -87,6 +89,7 @@ public class PasswordDialog {
         private String positiveText;
         private String negativeText;
         private List<ICheckPasswordFilter> checkPasswordFilers;
+        private boolean isCancelable = true;
 
         public Builder(Context context) {
             this(context, R.layout.dialog_password);
@@ -212,6 +215,11 @@ public class PasswordDialog {
 
         public Builder setFocusColorChangeEnable(boolean enable) {
             passwordInput.setFocusColorChangeEnable(enable);
+            return this;
+        }
+
+        public Builder setCancelable(boolean enable) {
+            isCancelable = enable;
             return this;
         }
 
