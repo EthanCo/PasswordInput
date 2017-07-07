@@ -170,7 +170,7 @@ buidler.setBorderNotFocusedColor(R.color.colorSecondaryText)
 <color name="colorAccent">#FF4081</color>
 ```
 
-### 点击屏幕或物理返回键，dialog不消失 ###
+### 点击空白处或物理返回键，dialog不消失 ###
 ``` java
 builder..setCancelable(false);
 ```
