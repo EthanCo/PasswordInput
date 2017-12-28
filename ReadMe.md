@@ -1,11 +1,11 @@
 # PasswordInput #
 密码输入框    
 
-![](http://i4.piimg.com/567571/1b0798bc3c3e3cca.gif)  
+![](http://oqk78xit2.bkt.clouddn.com/passwordInput.gif)  
 
 ![](/passwordInput.gif)  
 
-![](http://yotuku.cn/link?url=BkTFp8HWl&tk_plan=free&tk_storage=tietuku&tk_vuid=0b1372f4-d75a-448f-b3c6-484b81b02b70&tk_time=2016111311)  
+![](http://oqk78xit2.bkt.clouddn.com/PasswordDialog.jpg)  
 
 ![](/PasswordDialog.jpg)
 
@@ -165,17 +165,16 @@ buidler.setBorderNotFocusedColor(R.color.colorSecondaryText)
 
 ### 改变按钮颜色 ###
 
-如需更改PositiveButton和NevegateButton的颜色，将	
+如需更改PositiveButton和NevegateButton的颜色，将  	
 ``` xml
 <color name="colorAccent">#FF4081</color>
-```
+```  
+复制到app的color.xml中修改即可。  
 
 ### 点击空白处或物理返回键，dialog不消失 ###
 ``` java
 builder..setCancelable(false);
 ```
-
-复制到app的color.xml中修改即可。  
 
 ### 自定义Dialog布局 ###
 
