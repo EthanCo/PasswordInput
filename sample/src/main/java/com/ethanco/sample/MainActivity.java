@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private PasswordInput passwordInputAgain;
     private Button btnShowDialog;
     private Button btnShowDialogSimple;
+    private RateController rateController = new RateController(1000);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                         })
                         .addCheckPasswordFilter(new CountCheckFilter()); //添加过滤器
-                builder.create().show();
+                PasswordDialog passwordDialog = builder.create();
+                passwordDialog.show();
             }
         });
 
@@ -107,6 +109,22 @@ public class MainActivity extends AppCompatActivity {
                         .addCheckPasswordFilter(new CountCheckFilter()) //添加过滤器
                         .setCancelable(false); //dialog弹出后点击空白处或物理返回键，dialog不消失
                 builder.create().show();
+            }
+        });
+
+        //passwordInputFirst.setPassword("123456");
+        //passwordInputAgain.setPassword("123456");
+
+        Button btnPwdClear = (Button) findViewById(R.id.btn_pwd_clear);
+        btnPwdClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (rateController.isFastDoubleClick()) {
+                    Toast.makeText(MainActivity.this, "点击太快了", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                passwordInputFirst.setPassword("");
+                passwordInputAgain.setPassword("");
             }
         });
     }

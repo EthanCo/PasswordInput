@@ -67,4 +67,12 @@
         android:layout_marginTop="24dp"
         android:text="显示密码对话框_简化版"
         android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_pwd_clear"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="清空密码"
+        android:textSize="16sp" />
 </LinearLayout>

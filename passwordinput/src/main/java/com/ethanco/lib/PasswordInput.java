@@ -27,7 +27,7 @@ import static com.ethanco.lib.utils.Utils.getColor;
  * Created by EthanCo on 2016/7/25.
  */
 public class PasswordInput extends AppCompatEditText {
-    private static final String TAG = "Z-SimplePasswordInput";
+    private static final String TAG = "Z-PasswordInput";
 
     //============================= Z-边框 ==============================/
     @ColorInt
@@ -288,7 +288,6 @@ public class PasswordInput extends AppCompatEditText {
         }
 
         if (scans.length >= currTextLen) {
-
             scanAnim.setDuration(750);
             scanAnim.setRepeatCount(0);
             scanAnim.setInterpolator(new OvershootInterpolator());
@@ -445,5 +444,41 @@ public class PasswordInput extends AppCompatEditText {
 
     public void setFocusColorChangeEnable(boolean focusColorChangeEnable) {
         this.focusColorChangeEnable = focusColorChangeEnable;
+    }
+
+    /**
+     * 设置密码
+     *
+     * @param pwd
+     */
+    public void setPassword(CharSequence pwd) {
+        if (boxCount >= pwd.length()) {
+            if (currTextLen == pwd.length()) {
+                return;
+            }
+            synchronized (this) {
+                boolean isAdd = currTextLen < pwd.length();
+                setText(pwd);
+                currTextLen = pwd.length();
+                Log.i(TAG, "currTextLen:" + currTextLen + " pwd.length():" + pwd.length() + " boxCount:" + boxCount);
+
+                for (int i = 0; i < pwd.length(); i++) {
+                    scans[i] = 1;
+                }
+                for (int i = pwd.length(); i < scans.length; i++) {
+                    scans[i] = 0;
+                }
+                for (int i = 0; i < alphas.length; i++) {
+                    alphas[i] = 255;
+                }
+                for (float scan : scans) {
+                    Log.i(TAG, "setPassword:" + scan);
+                }
+                startTextChangedAnim(isAdd);
+            }
+        } else {
+            throw new IllegalStateException("Password length must be less than or equal to max length." +
+                    " current length:" + pwd.length() + " max length:" + boxCount);
+        }
     }
 }
