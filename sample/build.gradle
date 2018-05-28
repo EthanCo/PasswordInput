@@ -23,6 +23,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.3.0'
-    //compile project(':passwordinput')
-    compile 'com.github.EthanCo:PasswordInput:1.5.3'
+    compile project(':passwordinput')
+    //compile 'com.github.EthanCo:PasswordInput:1.5.3'
 }
