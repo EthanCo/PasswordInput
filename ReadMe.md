@@ -36,7 +36,7 @@ allprojects {
 
 ``` Groovy
 dependencies {
-   compile 'com.github.EthanCo:PasswordInput:1.5.2'
+   compile 'com.github.EthanCo:PasswordInput:1.5.3'
 }
 ```
 
@@ -71,6 +71,11 @@ passwordInput.setTextLenChangeListen(new PasswordInput.TextLenChangeListen() {
    }
 });
 ```    
+
+### 设置密码(清除密码) ###
+
+	passwordInput.setPassword("123456")
+	passwordInput.setPassword("")
 
 ### 可设置的自定义属性 ###
 
