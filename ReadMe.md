@@ -10,7 +10,7 @@
 ![](/PasswordDialog.jpg)
 
 v1.5
-  
+
 - 增加了PasswordDialog，采用Builder模式，便于使用
 - 精简了代码和自定义属性，只保留主要功能，以降低代码大小和使用成本
 - 获得焦点时可改变颜色，区分获得焦点的控件和未获得焦点的控件
@@ -36,7 +36,7 @@ allprojects {
 
 ``` Groovy
 dependencies {
-   compile 'com.github.EthanCo:PasswordInput:1.5.3'
+   compile 'com.github.EthanCo:PasswordInput:1.5.5'
 }
 ```
 
@@ -52,14 +52,14 @@ dependencies {
     app:boxCount="6"
     app:focusedColor="@color/colorAccent"
     app:notFocusedColor="@color/colorPrimary" />
-```    
+```
 
 ### 获得输入的内容 ###
 
 ``` java
 PasswordInput passwordInput = (PasswordInput) findViewById(R.id.passwordInput);
 String pwdFirst = passwordInput.getText().toString();
-```	
+```
 
 ### 设置内容改变监听 ###
 
@@ -70,12 +70,18 @@ passwordInput.setTextLenChangeListen(new PasswordInput.TextLenChangeListen() {
       //do something
    }
 });
-```    
+```
 
 ### 设置密码(清除密码) ###
 
 	passwordInput.setPassword("123456")
 	passwordInput.setPassword("")
+
+### 关闭弹框
+
+```java
+passwordInput.dismiss()
+```
 
 ### 可设置的自定义属性 ###
 
@@ -99,7 +105,7 @@ passwordInput.setTextLenChangeListen(new PasswordInput.TextLenChangeListen() {
 ``` java
 PasswordDialog.Builder builder = new PasswordDialog.Builder(MainActivity.this)
     .setTitle(R.string.please_input_password)  //Dialog标题
-    .setBoxCount(4) //设置密码位数
+    //.setBoxCount(4) //设置密码位数，此方法有BUG，建议在Builder构造函数中传入layoutRes来定义
     .setBorderNotFocusedColor(R.color.colorSecondaryText) //边框颜色
     .setDotNotFocusedColor(R.color.colorSecondaryText)  //密码圆点颜色
     .setPositiveListener(new OnPositiveButtonListener() { 
@@ -173,7 +179,7 @@ buidler.setBorderNotFocusedColor(R.color.colorSecondaryText)
 如需更改PositiveButton和NevegateButton的颜色，将  	
 ``` xml
 <color name="colorAccent">#FF4081</color>
-```  
+```
 复制到app的color.xml中修改即可。  
 
 ### 点击空白处或物理返回键，dialog不消失 ###
