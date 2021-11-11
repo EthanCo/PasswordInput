@@ -198,6 +198,11 @@ public class PasswordDialog {
             return this;
         }
 
+
+        /**
+         * 该方法有BUG，建议使用Builder中传入layoutRes的方式，设置BoxCount
+         */
+        @Deprecated
         public Builder setBoxCount(int boxCount) {
             passwordInput.setBoxCount(boxCount);
             return this;

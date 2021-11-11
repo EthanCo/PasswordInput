@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                         .setTitle(R.string.please_input_password)  //Dialog标题
                         .setBoxRadius(3) //每个密码方块的Radius dp
                         .setBoxMarge(3) //每个密码间隔的距离 dp
-                        .setBoxCount(4) //设置密码位数 dp
+                        //.setBoxCount(4) //设置密码位数 dp
                         //当没有获得焦点时的颜色，若setFocusColorChangeEnable为false，则无论是否获取焦点，
                         //都是set_____NotFocusedColor的颜色，Border为边框，Not为密码圆点
                         .setBorderNotFocusedColor(R.color.colorSecondaryText)
